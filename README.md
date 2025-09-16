@@ -39,9 +39,7 @@
 
 ## Deskripsi
 <p align="center">
-  <!-- Ganti dengan screenshot jika ada -->
-  <img src="https://img.icons8.com/?size=600&id=K1E2kqZyXwA2&format=png&color=0b5ed7" alt="Screenshot" width="720" />
-  <br/>
+    <img src="./screenshot.png" alt="Screenshot" width="720" />  <br/>
 </p>
 
 NYC Property Sales Dashboard adalah aplikasi web statis yang menampilkan ringkasan dan eksplorasi data penjualan properti di New York City selama periode 1 tahun (Sep 2016 – Agu 2017). Data divisualisasikan dalam bentuk kartu metrik, bagan interaktif (Chart.js), peta (Leaflet), serta tabel (DataTables) dengan filter tanggal, borough, dan kode pos.
