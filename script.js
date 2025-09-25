@@ -6,7 +6,7 @@ let data;
 
 async function fetchData() {
   const response = await fetch(
-    "https://raw.githubusercontent.com/rdsarjito/nyc_dataset/main/nyc_dataset.json"
+    "https://raw.githubusercontent.com/rdsarjito/nyc_dataset/refs/heads/main/nyc_dataset.json"
   );
   const data = await response.json();
 
@@ -205,8 +205,10 @@ function createFilter(
     .filter((item) => item.date >= startDate && item.date <= endDate)
     .filter(
       (item) =>
-        (selectedBoroughs.length === 0 || selectedBoroughs.includes(item.BOROUGH)) &&
-        (selectedZipCodes.length === 0 || selectedZipCodes.includes(item["ZIP CODE"]))
+        (selectedBoroughs.length === 0 ||
+          selectedBoroughs.includes(item.BOROUGH)) &&
+        (selectedZipCodes.length === 0 ||
+          selectedZipCodes.includes(item["ZIP CODE"]))
     );
 
   const uniqueBoroughs = uniqueBorough(filteredData);
@@ -532,12 +534,19 @@ function createBoroughUnitsChart(data) {
 function updateChartsAndData(filter) {
   createTotalData(filter.data);
 
-  document.getElementById("totalMontlySales").innerHTML = '<canvas id="totalMontlySales"></canvas>';
-  document.getElementById("yearBuiltChart").innerHTML = '<canvas id="yearBuiltChart"></canvas>';
-  document.getElementById("buildingClassChart").innerHTML = '<canvas id="buildingClassChart"></canvas>';
-  document.getElementById("neighborhoodChart").innerHTML = '<canvas id="neighborhoodChart"></canvas>';
-  document.getElementById("boroughUnitsChart").innerHTML = '<canvas id="boroughUnitsChart"></canvas>';
-  document.getElementById("reviewTable").innerHTML = `<table id="myTable" class="display">
+  document.getElementById("totalMontlySales").innerHTML =
+    '<canvas id="totalMontlySales"></canvas>';
+  document.getElementById("yearBuiltChart").innerHTML =
+    '<canvas id="yearBuiltChart"></canvas>';
+  document.getElementById("buildingClassChart").innerHTML =
+    '<canvas id="buildingClassChart"></canvas>';
+  document.getElementById("neighborhoodChart").innerHTML =
+    '<canvas id="neighborhoodChart"></canvas>';
+  document.getElementById("boroughUnitsChart").innerHTML =
+    '<canvas id="boroughUnitsChart"></canvas>';
+  document.getElementById(
+    "reviewTable"
+  ).innerHTML = `<table id="myTable" class="display">
                                                         <thead>
                                                           <tr>
                                                             <th>BOROUGH</th>
@@ -563,13 +572,13 @@ function updateChartsAndData(filter) {
 function dateFilters() {
   const filterStartDate = document.getElementById("startDate");
   const filterEndDate = document.getElementById("endDate");
-  
+
   filterStartDate.setAttribute("value", startDate.toISOString().slice(0, 10));
   filterEndDate.setAttribute("value", endDate.toISOString().slice(0, 10));
-  
+
   filterStartDate.addEventListener("change", (e) => {
     startDate = new Date(e.target.value);
-  
+
     const filter = createFilter(
       data,
       selectedBoroughs,
@@ -579,10 +588,10 @@ function dateFilters() {
     );
     updateChartsAndData(filter);
   });
-  
+
   filterEndDate.addEventListener("change", (e) => {
     endDate = new Date(e.target.value);
-  
+
     const filter = createFilter(
       data,
       selectedBoroughs,
@@ -619,5 +628,5 @@ function dateFilters() {
   createNeighborhoodChart(filter.data);
   createBoroughUnitsChart(data);
   getDataReview(data);
-  dateFilters()
+  dateFilters();
 })();
